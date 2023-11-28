@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql_db
+    user: root
+    command: /bin/bash /entrypoint.sh
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+      - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD}
+      - MSSQL_USER_PASSWORD=${MSSQL_USER_PASSWORD}
+    volumes:
+      - mssql_db_data:/var/opt/mssql/data
+      - ./create_db/docker-entrypoint.sh:/entrypoint.sh
+      - ./create_db/docker-create_db.sh:/db-init.sh
+      - ./create_db/create_db.sql:/db-init.sql
+    restart: always
+    healthcheck:
+        test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${MSSQL_SA_PASSWORD} -Q 'SELECT 1' || exit 1"]
+        interval: 10s
+        retries: 10
+        start_period: 10s
+        timeout: 3s
+
+volumes:
+  mssql_db_data:

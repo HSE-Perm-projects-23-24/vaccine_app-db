@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: ../migration_scripts/init_db.sql
