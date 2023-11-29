@@ -12,6 +12,7 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_PID=Developer
       - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD}
+      - MSSQL_USER_NAME=${MSSQL_USER_NAME}
       - MSSQL_USER_PASSWORD=${MSSQL_USER_PASSWORD}
     volumes:
       - mssql_db_data:/var/opt/mssql/data
@@ -21,10 +22,31 @@ services:
     restart: always
     healthcheck:
         test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${MSSQL_SA_PASSWORD} -Q 'SELECT 1' || exit 1"]
-        interval: 10s
+        interval: 20s
         retries: 10
         start_period: 10s
-        timeout: 3s
+        timeout: 5s
+
+  liquibase:
+    image: liquibase/liquibase
+    container_name: liquibase
+    environment:
+      - MSSQL_USER_NAME=${MSSQL_USER_NAME}
+      - MSSQL_USER_PASSWORD=${MSSQL_USER_PASSWORD}
+      - MSSQL_DATABASE=${MSSQL_DATABASE}
+    command: [ '/liquibase/liquibase',
+               '--driver=com.microsoft.sqlserver.jdbc.SQLServerDriver',
+               '--url=jdbc:sqlserver://mssql:1433;database=$MSSQL_DATABASE;trustServerCertificate=true;',
+               '--changeLogFile=changelog/changelog.yaml',
+               '--username=$MSSQL_USER_NAME',
+               '--password=$MSSQL_USER_PASSWORD',
+               'update' ]
+    volumes:
+      - ./migrations:/liquibase/changelog
+      - ./migration_scripts:/liquibase/migration_scripts
+    depends_on:
+      mssql:
+        condition: service_healthy
 
 volumes:
   mssql_db_data:
