@@ -1,0 +1,20 @@
+name: "DB update with Liquibase"
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  update:
+    name: Dev db update with Liquibase
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: liquibase-github-actions/update@v4.26.0
+      with:
+        changelogFile: "changelog/changelog.yaml"
+        url: "jdbc:sqlserver://${{ secrets.EDU_PRACTICE_HOST }}:${{ secrets.EDU_PRACTICE_MSSQL_PORT }};database=${{ secrets.VACCINE_APP_DB_DEV_NAME }};trustServerCertificate=true;"
+        driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+        password: "${{ secrets.VACCINE_APP_DB_DEV_USER_NAME }}"
+        username: "${{ secrets.VACCINE_APP_DB_DEV_USER_PASSWORD }}"
