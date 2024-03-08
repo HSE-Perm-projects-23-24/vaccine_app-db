@@ -33,10 +33,12 @@ services:
     environment:
       - MSSQL_USER_NAME=${MSSQL_USER_NAME}
       - MSSQL_USER_PASSWORD=${MSSQL_USER_PASSWORD}
+      - MSSQL_HOST=${MSSQL_HOST}
+      - MSSQL_PORT=${MSSQL_PORT}
       - MSSQL_DATABASE=${MSSQL_DATABASE}
     command: [ '/liquibase/liquibase',
                '--driver=com.microsoft.sqlserver.jdbc.SQLServerDriver',
-               '--url=jdbc:sqlserver://mssql:1433;database=$MSSQL_DATABASE;trustServerCertificate=true;',
+               '--url=jdbc:sqlserver://$MSSQL_HOST:$MSSQL_PORT;database=$MSSQL_DATABASE;trustServerCertificate=true;',
                '--changeLogFile=changelog/changelog.yaml',
                '--username=$MSSQL_USER_NAME',
                '--password=$MSSQL_USER_PASSWORD',
