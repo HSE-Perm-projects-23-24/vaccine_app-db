@@ -7,8 +7,9 @@ services:
     user: root
     command: /bin/bash /entrypoint.sh
     ports:
-      - "1433:1433"
+      - "1435:1433"
     environment:
+      - MSSQL_PORT=${MSSQL_PORT}
       - ACCEPT_EULA=Y
       - MSSQL_PID=Developer
       - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD}

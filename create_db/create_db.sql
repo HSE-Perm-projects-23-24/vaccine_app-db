@@ -76,6 +76,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE USER ProceduresTest FOR LOGIN ProceduresTest;
 GO
+ALTER ROLE db_owner ADD MEMBER ProceduresTest
+GO
 GRANT ALTER ANY SCHEMA to ProceduresTest
 GO
 GRANT EXECUTE to ProceduresTest

@@ -16,5 +16,5 @@ jobs:
         changelogFile: "changelog/changelog.yaml"
         url: "jdbc:sqlserver://${{ secrets.EDU_PRACTICE_HOST }}:${{ secrets.EDU_PRACTICE_MSSQL_PORT }};database=${{ secrets.VACCINE_APP_DB_DEV_NAME }};trustServerCertificate=true;"
         driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-        password: "${{ secrets.VACCINE_APP_DB_DEV_USER_NAME }}"
-        username: "${{ secrets.VACCINE_APP_DB_DEV_USER_PASSWORD }}"
+        password: "${{ secrets.VACCINE_APP_DB_DEV_USER_PASSWORD }}"
+        username: "${{ secrets.VACCINE_APP_DB_DEV_USER_NAME }}"
