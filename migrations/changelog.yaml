@@ -2,3 +2,9 @@ databaseChangeLog:
   - include:
       file: ../migration_scripts/init_db.sql
       relativeToChangeLogFile: true
+  - include:
+      file: ../migration_scripts/delete_old_tables.sql
+      relativeToChangeLogFile: true
+  - include:
+      file: ../migration_scripts/init_new_db.sql
+      relativeToChangeLogFile: true
