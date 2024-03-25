@@ -252,9 +252,6 @@ GO
 
 SET IDENTITY_INSERT [dbo].[user] ON 
 INSERT [dbo].[user] ([id], [username], [password], [is_admin]) VALUES (1, N'admin1', N'AIhMBBdKkWuQDM1W+3JlOt5bvxYbvBeWIxXvMcv9hPA1VboXnZK3cB08Cq2Nyl1uIA==', 1)
-INSERT [dbo].[user] ([id], [username], [password], [is_admin]) VALUES (32, N'user1', N'AFmm7S8fvBt66i48dUQFQhMsxmXgBGEfSwSVhzAwYNNCsf1D86Hx8syITwL8QWELkQ==', 0)
-INSERT [dbo].[user] ([id], [username], [password], [is_admin]) VALUES (33, N'user2', N'ACaoch3Z9T2dUaCymvTXq6nteUwpvffKy6wEyX3JTcF/JuG44Kt2QaEdW4jRn+MmVQ==', 0)
-INSERT [dbo].[user] ([id], [username], [password], [is_admin]) VALUES (34, N'test1', N'AD4NHGJX9rfIEnzdOMuKDOi1Y0rNQMSKh540dDtm3k4EFix+BOJq2srZX7Sq80NLJg==', 0)
 SET IDENTITY_INSERT [dbo].[user] OFF
 GO
 
